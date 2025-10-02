@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <form action="/movimentacoes" method="post">
+        <p>movimentações</p>
+
+        <label for="mvtdata">Data</label>
+        <input type="text" name="mvtdata" id="mvtdata">
+        <label for="mvttipo">Tipo</label>
+        <input type="text" name="mvttipo" id="mvttipo">
+        <label for="mvtproduto">Produto</label>
+        <input type="text" name="mvtproduto" id="mvtproduto">
+        <label for="mvtqtde">Quantidade</label>
+        <input type="text" name="mvtqtde" id="mvtqtde">
+        <label for="mvtlote">Lote</label>
+        <input type="text" name="mvtlote" id="mvtlote">
+        
+        <input type="submit" name="enviar" id="enviar" value="Enviar">
+    </form>
+    <button onclick="window.location.href = '/'">Voltar</button>
+</body>
+</html>
