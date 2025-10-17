@@ -13,43 +13,81 @@ if (isset($_GET['MUDARPAG']))
 //Conecta ao banco usando PDO
 $oCon = new PDO('mysql:host=localhost; dbname=BANCOCOMUM', 'Aluno2DS', 'SenhaBD2');
 //Define quantos registros aparecerão na página
-$nQtdeReg = 20;
+$nQtdeReg = 14;
+//Variáveis para mensagem de feedback
+$cTipoMensagem = "";
+$cMensagem = "";
 
-//Verifica se txtNome foi enviado
+//Verifica se txtNome foi enviado via GET
 if(isset($_GET['txtNome']))
 	//Se o nome não estiver vazio
     if(strlen(trim($_GET['txtNome'])) != 0)
 		//Se o código for diferente de 0, é uma edição
         if($_GET['txtCod'] != 0)
         {
-			//Monta o SQL para atualizar o registro
+			//Monta o comando SQL para atualizar o registro existente
             $cSQL = "UPDATE EXERCICIO SET EXRDESCRICAO = '" . trim($_GET['txtNome']) . "' WHERE EXRCODIGO = " . $_GET['txtCod'];
-            //Executa o SQL
-			$oCon->exec($cSQL);
+            //Executa o comando e verifica se deu certo
+			//Se der certo, mostra a mensagem de sucesso
+			if($oCon->exec($cSQL))
+            {
+                $cTipoMensagem = "Exito";
+                $cMensagem = "Alteração realizada com sucesso";
+            }
+			//Se der errado, mostra a mensagem de falha
+            else
+            {
+                $cTipoMensagem = "Erro";
+                $cMensagem = "Ocorreu erro ao alterar o registro: <br />" . $oCon->errorInfo()[2];
+            }
         }
         else
         {
 			//Se o código for 0, é uma inserção
+			//Monta o comando de inserção
             $cSQL = "INSERT INTO EXERCICIO (EXRDESCRICAO) VALUES ('" . trim($_GET['txtNome']) . "')";
-            $oCon->exec($cSQL);
+            //Executa o comando e verifica o resultado
+			//Dependendo da execução, mostra a mensagem que está na variável $cMensagem
+			if($oCon->exec($cSQL))
+            {
+                $cTipoMensagem = "Exito";
+                $cMensagem = "Inclusão realizada com sucesso";
+            }
+            else
+            {
+                $cTipoMensagem = "Erro";
+                $cMensagem = "Ocorreu erro ao incluir o registro: <br />" . $oCon->errorInfo()[2];
+            }
         }
 
 		//Se um campo foi selecionado pelo radio button, o código correspondente é excluído
         if(isset($_GET['radSelecao']))
         {
+			//Monta o comando para deletar o registro selecionado
             $cSQL = "DELETE FROM EXERCICIO WHERE EXRCODIGO = " . ((int)$_GET['radSelecao']);
-            $oCon->exec($cSQL);
+            //Executa o comando e verifica o resultado
+			//Dependendo da execução, mostra a mensagem que está na variável $cMensagem
+			if($oCon->exec($cSQL))
+            {
+                $cTipoMensagem = "Exito";
+                $cMensagem = "Registro deletado com sucesso";
+            }
+            else
+            {
+                $cTipoMensagem = "Erro";
+                $cMensagem = "Ocorreu erro ao deletar o registro: <br />" . $oCon->errorInfo()[2];
+            }
         }
 
 $nCod = 0;
 $cNome = "";
 
-//Se foi passado o código de alteração(CODALT) via GET
+//Se foi passado o código de alteração(CODALT) via GET (quando o usuário clica em um nome da tabela)
 if(isset($_GET['CODALT']))
 {
-	//Faz uma consulta com esse código no banco
+	//Faz uma consulta com base nesse código
     $cSQL = "SELECT * FROM EXERCICIO WHERE EXRCODIGO = " . ((int)$_GET['CODALT']);
-    //Se encontrar o registro, os campos do form são preenchidos
+    //Se encontrar o registro, os campos do form são preenchidos com esses dados
 	if($vReg = $oCon->query($cSQL, PDO::FETCH_ASSOC)->fetch())
     {
         $nCod = $vReg['EXRCODIGO'];
@@ -59,12 +97,101 @@ if(isset($_GET['CODALT']))
 ?>
 
 <html>
+
+<style>
+/* Importa fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Aplica a fonte para todos os elementos */
+*{
+    box-sizing: border-box;
+    font-family: 'Oswald', monospace;
+}
+
+/* Form de Inclusão/edição */
+form:first-of-type{
+    margin: 10px 4%;
+    width: 90%;
+
+    & > input{
+        width: 70%;
+    }
+
+    & > button{
+        width: 25%;
+    }
+
+    & > label{
+        display: block;
+    }
+}
+
+/* Estilo da tabela */
+table{
+    margin: 50px 4%;
+    width: 90%;
+    border: 1px double #CFCFCF;
+}
+
+/* Alterna as cores das linhas */
+tr:nth-child(odd){
+    background-color: #F0F0F0;
+}
+
+tr:nth-child(even){
+    background-color: #EDEDED;
+}
+
+/* Efeito para quando passar o mouse em cima */
+tr:hover{
+    background-color: #3090F3;
+    color: #
+}
+
+/* Cabeçalho da tabela */
+th{
+    background-color: #606060;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* Mensagem de sucesso e erro */
+.Exito, .Erro{
+    margin: 5px 4%;
+    padding: 2px 10px 2px 50px;
+    width: 90%;
+}
+
+.Exito{ 
+    background-color: #CFFFCF;
+    border: 1px solid #009000;
+    border-left: 5px solid #009000;
+}
+
+.Erro{
+    background-color: #FFCFCF;
+    border: 1px solid #900000;
+    border-left: 5px solid #900000;
+}
+</style>
+
     <body>
+	<!-- Form de inclusão ou alteração -->
         <form>
-			<!--Campo oculto com o código para identificar se é um valor novo ou se é uma edição -->
+            <label>Descrição</label>
+			<!-- Campo oculto com o código para identificar se é um valor novo ou se é uma edição -->
             <input type="hidden" name="txtCod" value="<?= $nCod ?>" />
-            <input name="txtNome" value="<?= $cNome ?>"/>
+			<!-- Campo de texto para a descrição -->
+            <input name="txtNome" value="<?= $cNome ?>" placeholder="Informe a descrição"/>
+            <!-- Botão para gravar as alterações feitas(Inserção, edição) -->
+			<button>Gravar alterações</button>
         </form>
+		<!-- Painel de mensagem de sucesso ou erro, apenas quando o usuário fizer algo -->
+        <div id="pnlMensagem" class="<?= $cTipoMensagem ?>">
+            <span><?= $cMensagem ?></span>
+        </div>
+		<!-- Form para listagem, exclusão e navegação -->
         <form action="">
             <table>
                 <thead>
@@ -76,21 +203,27 @@ if(isset($_GET['CODALT']))
                 </thead>
                 <tbody>
                     <?php
-					//SQL para buscar os registros da página atual
+					//Comando para buscar os registros da página atual
                     $cSQL = "SELECT * FROM EXERCICIO ORDER BY EXRDATAINCLUSAO DESC LIMIT " . ($_SESSION['PAGINA'] * $nQtdeReg) . ", $nQtdeReg";
                     //Loop para exibir os registros como linhas da tabela
 					foreach($oCon->query($cSQL, PDO::FETCH_ASSOC) as $vReg)
                        echo '<tr>' .
+							//Radio para selecionar um registro(para exclusão)
                             '  <td><input type="radio" name="radSelecao" value="' . $vReg['EXRCODIGO']  . '" /></td>' .
-                            '  <td><a href="?CODALT=' . $vReg['EXRCODIGO'] . '">' . $vReg['EXRDESCRICAO'] .'</a></td>' .
-                            '  <td>' . $vReg['EXRDATAINCLUSAO'] .'</td>' .
+                            //Nome do registro
+							'  <td><a href="?CODALT=' . $vReg['EXRCODIGO'] . '">' . $vReg['EXRDESCRICAO'] .'</a></td>' .
+                            //Data de inclusão
+							'  <td>' . $vReg['EXRDATAINCLUSAO'] .'</td>' .
                             '</tr>';
                     ?>
                 </tbody>
             </table>
+			<!-- Botão de exclusão -->
             <button name="btnExcluir" type="button" onClick="if(confirm('Deseja realmente excluir o registro?\nEssa operação não poderá ser desfeita'))
                 this.parentElement.submit()
             ">Remover seleção</button>
+			<!-- Links de navegação -->
+            <a href="<?= $_SESSION['PAGINA'] == 0?' # ' : '?MUDARPAG=-1' ?>">Página Anterior</a>
             <a href="?MUDARPAG=1">Próxima Página</a>
         </form>
     </body>
