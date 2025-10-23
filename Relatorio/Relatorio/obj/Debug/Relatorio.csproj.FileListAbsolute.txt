@@ -1,0 +1,10 @@
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\bin\Debug\Relatorio.exe.config
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\bin\Debug\Relatorio.exe
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\bin\Debug\Relatorio.pdb
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\obj\Debug\Relatorio.csproj.AssemblyReference.cache
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\obj\Debug\Relatorio.FrmMapa.resources
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\obj\Debug\Relatorio.Properties.Resources.resources
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\obj\Debug\Relatorio.csproj.GenerateResource.cache
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\obj\Debug\Relatorio.csproj.CoreCompileInputs.cache
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\obj\Debug\Relatorio.exe
+C:\Users\Aluno\Desktop\Relatorio\Relatorio\obj\Debug\Relatorio.pdb

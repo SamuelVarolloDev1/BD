@@ -1,0 +1,52 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Aluno\\Desktop\\Relatorio\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9D73FD7F-3D97-44DF-8ED6-285577F18C33}|Relatorio\\Relatorio.csproj|c:\\users\\aluno\\desktop\\relatorio\\relatorio\\frmcidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9D73FD7F-3D97-44DF-8ED6-285577F18C33}|Relatorio\\Relatorio.csproj|solutionrelative:relatorio\\frmcidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D73FD7F-3D97-44DF-8ED6-285577F18C33}|Relatorio\\Relatorio.csproj|c:\\users\\aluno\\desktop\\relatorio\\relatorio\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9D73FD7F-3D97-44DF-8ED6-285577F18C33}|Relatorio\\Relatorio.csproj|solutionrelative:relatorio\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FrmCidades.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Aluno\\Desktop\\Relatorio\\Relatorio\\FrmCidades.cs",
+              "RelativeDocumentMoniker": "Relatorio\\FrmCidades.cs",
+              "ToolTip": "C:\\Users\\Aluno\\Desktop\\Relatorio\\Relatorio\\FrmCidades.cs [Design]",
+              "RelativeToolTip": "Relatorio\\FrmCidades.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-23T17:50:44.719Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Aluno\\Desktop\\Relatorio\\Relatorio\\Form1.cs",
+              "RelativeDocumentMoniker": "Relatorio\\Form1.cs",
+              "ToolTip": "C:\\Users\\Aluno\\Desktop\\Relatorio\\Relatorio\\Form1.cs [Design]",
+              "RelativeToolTip": "Relatorio\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-23T16:55:27.091Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
