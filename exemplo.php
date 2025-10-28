@@ -1,12 +1,12 @@
 <?php
-//Inicia a sessão no PHP
+//Inicia a sessão no PHP - Para variáveis de sessão(como session_start)
 session_start();
 
 //Controla as páginas
 //Se a variável PAGINA ainda não estiver definida, inicializa como 0
 if (!isset($_SESSION['PAGINA']))
     $_SESSION['PAGINA'] = 0;
-//Se MUDARPAG for passado via GET, a página muda
+//Se MUDARPAG for passado via GET(ex: ?MUDARPAG=1 ou -1), a página muda
 if (isset($_GET['MUDARPAG']))
     $_SESSION['PAGINA'] += (int) $_GET['MUDARPAG'];
 
@@ -17,6 +17,7 @@ $nQtdeReg = 14;
 //Variáveis para mensagem de feedback
 $cTipoMensagem = "";
 $cMensagem = "";
+//Variáveis para pesquisa
 $cPesquisa = "";
 
 //Verifica se txtNome foi enviado via GET
@@ -52,6 +53,7 @@ if (isset($_GET['txtNome']))
                 $cMensagem = "Ocorreu erro ao incluir o registro: <br />" . $oCon->errorInfo()[2];
             }
         } else
+		//Se o usuário clicou em "Pesquisar", salva o texto da pesquisa
         $cPesquisa = trim($_GET['txtNome']);
 
 //Se um campo foi selecionado pelo radio button, o código correspondente é excluído
@@ -69,6 +71,7 @@ if (isset($_GET['radSelecao'])) {
     }
 }
 
+//Inicializa variáveis padrão
 $nCod = 0;
 $cNome = "";
 
@@ -175,6 +178,7 @@ if (isset($_GET['CODALT'])) {
         <input name="txtNome" value="<?= $cNome ?>" placeholder="Informe a descrição" />
         <!-- Botão para gravar as alterações feitas(Inserção, edição) -->
         <button name="cmdGravar">Gravar alterações</button>
+		<!-- Botão para pesquisar -->
         <button name="cmdPesquisar">Pesquisar</button>
     </form>
     <!-- Painel de mensagem de sucesso ou erro, apenas quando o usuário fizer algo -->
@@ -193,7 +197,7 @@ if (isset($_GET['CODALT'])) {
             </thead>
             <tbody>
                 <?php
-                //Comando para buscar os registros da página atual
+                //Comando para listar os registros com base na página e filtro
                 $cSQL = "SELECT EXRCODIGO, EXRDESCRICAO, DATE_FORMAT(EXRDATAINCLUSAO, '%d/%m/%Y %H:%I:%S') EXRDATAINCLUSAO FROM EXERCICIO WHERE EXRDESCRICAO LIKE '%$cPesquisa%' ORDER BY EXRDATAINCLUSAO DESC LIMIT " . ($_SESSION['PAGINA'] * $nQtdeReg) . ", $nQtdeReg";
                 //Loop para exibir os registros como linhas da tabela
                 foreach ($oCon->query($cSQL, PDO::FETCH_ASSOC) as $vReg)
